@@ -19,3 +19,4 @@ scikit-learn
 typing-extensions
 pydantic
 pillow
+transformer_lens
