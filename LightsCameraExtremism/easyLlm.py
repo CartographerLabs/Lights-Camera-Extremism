@@ -239,7 +239,7 @@ class EasyLLM:
                 try:
                     return json.loads(resp)
                 except:
-                    result = result.replace("Here is the output in JSON format: ```","")
+                    result = text.split('``` ', 1)[-1]
                     result = result.replace("```","")
                     return json.loads(result)
             
