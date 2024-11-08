@@ -58,6 +58,7 @@ class Director(Agent):
                   f"Make everything highly realistic."
                   f"All posts should be in chronological time order."
                   f"Provid the whole json, for all entries."
+                  f"Timing's should be accurate and representative of the real world."
                   f"Return your response in raw json, no surrounding text."
                   )
 
