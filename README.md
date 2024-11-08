@@ -1,4 +1,8 @@
-# LightsCameraExtremism
+<p align="center">
+    <img width=100% src="lce-logo.png">
+  </a>
+</p>
+<p align="center"> 🤖 A Social Network Synthetic Dataset Generation Tool  🖥️ </p>
 
 ## Overview
 
