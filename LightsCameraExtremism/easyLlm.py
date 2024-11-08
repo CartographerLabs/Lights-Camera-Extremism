@@ -18,7 +18,7 @@ import random
 # Suppress unnecessary warnings
 hf_logging.set_verbosity_error()
 
-UNSLOTH_MODELS = ["CalderaAI/13B-Ouroboros"]
+UNSLOTH_MODELS = ["OpenAssistant/llama2-13b-orca-8k-3319"]
 
 class EasyLLM:
     """
