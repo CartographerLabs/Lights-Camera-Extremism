@@ -18,7 +18,7 @@ import random
 # Suppress unnecessary warnings
 hf_logging.set_verbosity_error()
 
-UNSLOTH_MODELS = ["Orenguteng/Llama-3-8B-Lexi-Uncensored"]
+UNSLOTH_MODELS = ["CalderaAI/13B-Ouroboros"]
 
 class EasyLLM:
     """
