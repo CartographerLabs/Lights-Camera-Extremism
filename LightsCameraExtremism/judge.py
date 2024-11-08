@@ -4,7 +4,7 @@ from LightsCameraExtremism.easyLlm import EasyLLM
 import json
 
 class Judge(Agent):
-    def enforce(self, enforcement, input):
+    def enforce(self, input):
         prompt = (f"You are an expert social scientist. Your job is to review text and assess if it was written by an AI large language model."
                   f"Assess the following text: '{input}'."
                   f"Return your response in raw json, no surrounding text."
