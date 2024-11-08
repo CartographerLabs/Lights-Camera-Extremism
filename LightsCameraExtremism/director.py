@@ -59,7 +59,7 @@ class Director(Agent):
                   )
 
         schema = {
-        "USERS": "[{'USERNAME':'the user's username','BIO':'the user's bio, 'PERSONALITY':'The user's personality'}], 'SCRIPT': [{'USER':'Name of he user', 'TIME':'The dd/mm/yy hh/mm/ss of the post', 'PURPOSE':'The purpose of the post', 'FEATURES': {'TOXICITY':'the toxicity of the message', 'SENTIMENT':'the sentiment of the message', 'EMOTION':'the emotion of the message'}}]"
+        "USERS": "[{'USERNAME':'the user's username','BIO':'the user's social media bio/ description/ information about themselves, 'PERSONALITY':'The user's personality'}], 'SCRIPT': [{'USER':'Name of he user', 'TIME':'The dd/mm/yy hh/mm/ss of the post', 'PURPOSE':'The purpose of the post', 'FEATURES': {'TOXICITY':'the toxicity of the message - high, medium, low, etc', 'SENTIMENT':'the sentiment of the message', 'EMOTION':'the emotion of the message'}}]"
         }
 
         schema = json.dumps(schema)
