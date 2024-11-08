@@ -73,7 +73,7 @@ class Actor(Agent):
         judge = Judge(self.llm)
 
         while not is_valid and attempts <5:
-            judgement = judge.enforce(response["POST"], "Your role is to identify if this text was written by an AI. If so, provide feedback on the factors in which it is detectable.")
+            judgement = judge.enforce(response["POST"])
             is_valid = bool(judgement["RESULT"])
             reasoning = judgement["FEEDBACK"]
 
