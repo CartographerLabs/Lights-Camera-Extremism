@@ -87,11 +87,6 @@ class EasyLLM:
                         bnb_8bit_compute_dtype=torch.bfloat16,
                     )
 
-                max_memory = {
-                    0: "7GiB",  # Adjust this value based on your GPU's available memory
-                    "cpu": "20GiB"  # Adjust based on your system's RAM
-                }
-
                 # Use device_map with max_memory to control layer placement
                 device_map = "auto"
 
@@ -99,7 +94,6 @@ class EasyLLM:
                     self.model_name,
                     quantization_config=quantization_config,
                     device_map=device_map,
-                    max_memory=max_memory,
                     offload_folder="offload",  # Folder to offload weights if necessary
                 )
             else:
