@@ -25,7 +25,7 @@ from collections import defaultdict
 # Suppress unnecessary warnings
 hf_logging.set_verbosity_error()
 
-UNSLOTH_MODELS = ["unsloth/mistral-7b-v0.3-bnb-4bit"]
+UNSLOTH_MODELS = ["unsloth/Mistral-Small-Instruct-2409-bnb-4bit"]
 
 class EasyLLM:
     """
