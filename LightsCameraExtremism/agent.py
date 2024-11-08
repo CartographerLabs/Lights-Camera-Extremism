@@ -1,5 +1,5 @@
 from abc import ABC
-from LightsCameraAction.easyLlm import EasyLLM
+from LightsCameraExtremism.easyLlm import EasyLLM
 
 class Agent(ABC):
     """

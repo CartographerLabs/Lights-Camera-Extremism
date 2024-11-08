@@ -1,8 +1,8 @@
-# LightsCameraAction
+# LightsCameraExtremism
 
 ## Overview
 
-LightsCameraAction is a Python project that simulates social network interactions using language models. It generates users with varying personalities and simulates their interactions within a social network environment.
+LightsCameraExtremism is a Python project that simulates social network interactions using language models. It generates users with varying personalities and simulates their interactions within a social network environment.
 
 ## Features
 
@@ -15,13 +15,13 @@ LightsCameraAction is a Python project that simulates social network interaction
 1. **Clone the repository**:
 
    ```bash
-   git clone https://github.com/yourusername/LightsCameraAction.git
+   git clone https://github.com/yourusername/LightsCameraExtremism.git
    ```
 
 2. **Navigate to the project directory**:
 
    ```bash
-   cd LightsCameraAction
+   cd LightsCameraExtremism
    ```
 
 3. **Install the required dependencies**:

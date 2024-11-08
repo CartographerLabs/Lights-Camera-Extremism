@@ -5,14 +5,14 @@ with open('requirements.txt', 'r') as f:
     requirements = f.read().splitlines()
 
 setup(
-    name='LightsCameraAction',
+    name='LightsCameraExtremism',
     version='0.1.0',
     description='A simulation of social network interactions using language models.',
     packages=find_packages(),
     install_requires=requirements,
     entry_points={
         'console_scripts': [
-            'LightsCameraExtremism=LightsCameraAction.stage:main',
+            'LightsCameraExtremism=LightsCameraExtremism.stage:main',
         ],
     },
 )

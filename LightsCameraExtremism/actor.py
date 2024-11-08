@@ -1,6 +1,6 @@
-from LightsCameraAction.agent import Agent
-from LightsCameraAction.easyLlm import EasyLLM
-from LightsCameraAction.judge import Judge
+from LightsCameraExtremism.agent import Agent
+from LightsCameraExtremism.easyLlm import EasyLLM
+from LightsCameraExtremism.judge import Judge
 
 import json
 

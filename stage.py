@@ -1,7 +1,7 @@
-from LightsCameraAction.playwrite import PlayWrite
-from LightsCameraAction.director import Director
-from LightsCameraAction.actor import Actor
-from LightsCameraAction.easyLlm import EasyLLM
+from LightsCameraExtremism.playwrite import PlayWrite
+from LightsCameraExtremism.director import Director
+from LightsCameraExtremism.actor import Actor
+from LightsCameraExtremism.easyLlm import EasyLLM
 from pprint import pprint
 
 def main():

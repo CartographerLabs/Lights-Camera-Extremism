@@ -1,5 +1,5 @@
-from LightsCameraAction.agent import Agent
-from LightsCameraAction.easyLlm import EasyLLM
+from LightsCameraExtremism.agent import Agent
+from LightsCameraExtremism.easyLlm import EasyLLM
 
 import json 
 
