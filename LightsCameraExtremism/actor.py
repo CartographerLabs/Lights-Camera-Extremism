@@ -53,6 +53,7 @@ class Actor(Agent):
                   f"Your post should seem realistic for the given enviroment and be represnetative of the user persona."
                   f"Do not shy away from using strong language or hate speech if it is realistic for the user persona."
                   f"Ensure to type like a human, have the occasional typo, use swear words and strong language, and be aggresive where appropriate."
+                  f"Be specific, talk about specific details, agendas, plans, dates, people, etc."
                   f"Return your response in raw json, no surrounding text."
 
                   )
