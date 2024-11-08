@@ -52,6 +52,7 @@ class Actor(Agent):
                   f"You are encouraged to respond to other users, and reply to the latest message(s) in the conversation."
                   f"Your post should seem realistic for the given enviroment and be represnetative of the user persona."
                   f"Do not shy away from using strong language or hate speech if it is realistic for the user persona."
+                  f"Ensure to type like a human, have the occasional typo, use swear words and strong language, and be aggresive where appropriate."
                   f"Return your response in raw json, no surrounding text."
 
                   )
