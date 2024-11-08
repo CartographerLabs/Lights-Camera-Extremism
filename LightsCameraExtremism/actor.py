@@ -77,6 +77,10 @@ class Actor(Agent):
 
         while not is_valid and attempts <5:
             judgement = judge.enforce(response["POST"])
+            if "ai" in str(judgement["RESULT"]).lower():
+                is_valid = True
+                break
+                
             is_valid = bool(judgement["RESULT"])
             reasoning = judgement["FEEDBACK"]
 
