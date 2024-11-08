@@ -6,7 +6,7 @@ with open('requirements.txt', 'r') as f:
 
 setup(
     name='LightsCameraExtremism',
-    version='0.1.0',
+    version='0.1.1',
     description='A simulation of social network interactions using language models.',
     packages=find_packages(),
     install_requires=requirements,
