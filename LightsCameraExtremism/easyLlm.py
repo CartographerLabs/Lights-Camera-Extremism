@@ -27,7 +27,7 @@ class EasyLLM:
 
     def __init__(
         self,
-        max_new_tokens: int = 4000,
+        max_new_tokens: int = 6000,
         model_name: str = None,
     ) -> None:
         """

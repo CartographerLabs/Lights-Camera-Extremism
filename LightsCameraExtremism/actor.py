@@ -49,6 +49,7 @@ class Actor(Agent):
                   f"You are writing a post on the network after seeing the following posts: '{list_of_all_previous_posts}'."
                   f"Your post should be written with the following purpose: '{post_purpose}' and features {post_features}."
                   f"Your messages should make sense in the narrative of the network, and can '@' mention other users."
+                  f"You are encouraged to respond to other users, and reply to the latest message(s) in the conversation."
                   f"Your post should seem realistic for the given enviroment and be represnetative of the user persona."
                   f"Do not shy away from using strong language or hate speech if it is realistic for the user persona."
                   f"Return your response in raw json, not wrapped in any other text or data structure (i.e. '```')."

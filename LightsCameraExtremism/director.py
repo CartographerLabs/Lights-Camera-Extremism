@@ -40,7 +40,7 @@ class Director(Agent):
         message_features = ["toxicity", "sentiment", "emotion"]
 
         prompt = (f"You are an exper social scientist. You have previously exammined countless social networks."
-                  f"Write a play-by-play script of interactions on a social network."
+                  f"Write a play-by-play script of interactions on a social network - similar to Twitter."
                   f"Ensure that the network you make conforms to the following information and feels realistic. Do not shy away from language (such as swear words or hate speech) that would be present in the given environment."
                   f"Use real information to populate the network, i.e. use real usernames, examples, etc. Make them feel freal and based on the network in question. Ensure to add variety."
                   f"The social network is channel called '{channel_name}' and is defined as '{channel_bio}'."
@@ -50,6 +50,9 @@ class Director(Agent):
                   f"In your script do not include the messaging said by users, only when they message and highlighting different fetaures of the post, such as '{message_features}."
                   f"The narrative of your play-by-play script should be centered around '{story_agenda}'."
                   f"The script should be '{story_length}' posts in length."
+                  f"Usernames should be ones that you'd expect to see on a real social network and be serious real examples."
+                  f"The PURPOSE field, should include a variety of different purposes, such as sharing news, asking questions, making jokes, etc - but should all be things the user can do in a text post."
+                  f"The script you are writing should have several small conversations baked in."
                   f"Ensure to add a good degree of detail to the script, and make sure to include a variety of different users, information, and variety."
                   f"Ensure to only add users to the script that you mentioned in the user list."
                   f"Return your response in raw json, not wrapped in any other text or data structure (i.e. '```')."
