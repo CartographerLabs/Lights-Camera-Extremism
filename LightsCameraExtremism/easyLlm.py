@@ -265,7 +265,7 @@ class EasyLLM:
                             return json.loads(result)
                         except:
                             if attempts < 1:
-                                return self.ask_question(question: str, reset_dialogue, 1)
+                                return self.ask_question(question, reset_dialogue, 1)
             
     def extract_roles_from_template(self, chat_template: str) -> List[str]:
         """
