@@ -194,7 +194,7 @@ class EasyLLM:
         """
         self.dialogue = []
 
-    def ask_question(self, question: str, reset_dialogue: bool = True) -> str:
+    def ask_question(self, question: str, reset_dialogue: bool = True, attempts=0) -> str:
         """
         Generates a response for the given question using the loaded model.
 
@@ -260,8 +260,12 @@ class EasyLLM:
                     try:
                         return json.loads(result)
                     except:
-                        result = result.split(': ', 1)[-1]
-                        return json.loads(result)
+                        try:
+                            result = result.split(': ', 1)[-1]
+                            return json.loads(result)
+                        except:
+                            if attempts < 1:
+                                return self.ask_question(question: str, reset_dialogue, 1)
             
     def extract_roles_from_template(self, chat_template: str) -> List[str]:
         """
