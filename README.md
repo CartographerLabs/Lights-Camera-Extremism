@@ -15,7 +15,7 @@
 
 ## Features 🌟
 
-- **PlayWrite** 🎭: Generates abstract user profiles based on given channel information. It creates detailed backstories and personality traits for each user to simulate realistic interactions.
+- **PlayWrite** 🎭: Generates an abstract on the social network to be created. It creates detailed backstories and personality traits for each user to simulate realistic interactions.
 
 - **Director** 🎬: Creates a script of interactions among users. It orchestrates the flow of conversations, determining which users interact and the topics discussed to emulate social network dynamics.
 
