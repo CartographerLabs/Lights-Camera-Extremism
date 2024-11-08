@@ -57,7 +57,7 @@ class Director(Agent):
                   f"Ensure to only add users to the script that you mentioned in the user list."
                   f"Make everything highly realistic."
                   f"All posts should be in chronological time order."
-                  f"Provid the whole json, for all entries.
+                  f"Provid the whole json, for all entries."
                   f"Return your response in raw json, no surrounding text."
                   )
 
