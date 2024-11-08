@@ -81,13 +81,13 @@ class Actor(Agent):
                 
             judgement = judge.enforce(response["POST"])
             if "ai" in str(judgement["RESULT"]).lower():
-                is_valid = True
+                is_valid = False
             else:
                 
                 is_valid = bool(judgement["RESULT"])
             reasoning = judgement["FEEDBACK"]
 
-            if not is_valid:
+            if is_valid:
                 break
 
             question = question + f"You previously provided the post '{response['POST']}' which was deemed not realistic as a human written post. This was for the following reasons '{reasoning}'. Please provide a new post."
