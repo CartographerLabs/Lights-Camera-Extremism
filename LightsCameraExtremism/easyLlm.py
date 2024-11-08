@@ -239,8 +239,12 @@ class EasyLLM:
                 try:
                     return json.loads(resp)
                 except:
-                    result = text.split('``` ', 1)[-1]
+                    result = result.split('``` ', 1)[-1]
                     result = result.replace("```","")
+                    try:
+                        return json.loads(result)
+                    except:
+                    result = result.split(': ', 1)[-1]
                     return json.loads(result)
             
     def extract_roles_from_template(self, chat_template: str) -> List[str]:
