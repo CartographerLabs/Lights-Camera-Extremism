@@ -85,11 +85,13 @@ class Actor(Agent):
             else:
                 
                 is_valid = bool(judgement["RESULT"])
-            reasoning = judgement["FEEDBACK"]
+            
 
             if is_valid:
                 break
 
+            reasoning = judgement["FEEDBACK"]
+            
             question = question + f"You previously provided the post '{response['POST']}' which was deemed not realistic as a human written post. This was for the following reasons '{reasoning}'. Please provide a new post."
 
             prompt = self.llm.generate_json_prompt(schema=model, query=prompt)
