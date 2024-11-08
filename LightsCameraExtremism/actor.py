@@ -75,7 +75,10 @@ class Actor(Agent):
         attempts  = 0
         judge = Judge(self.llm)
 
-        while not is_valid and attempts <5:
+        while not is_valid 
+            if attempts >5:
+                break
+                
             judgement = judge.enforce(response["POST"])
             if "ai" in str(judgement["RESULT"]).lower():
                 is_valid = True
