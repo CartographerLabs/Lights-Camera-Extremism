@@ -11,7 +11,7 @@ class Judge(Agent):
                   )
 
 
-        schema = {"RESULT":"A boolean representation of True if the text is AI generated or False if not.",
+        schema = {"RESULT":"A boolean representation of 'True' if the text is AI generated or 'False' if not.",
                   "FEEDBACK":"Text on what could be improved to make the text meet the criteria."}
 
         schema = json.dumps(schema)
