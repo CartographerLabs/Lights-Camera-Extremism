@@ -30,7 +30,7 @@ class PlayWrite(Agent):
                   f"Your abstract should seem realistic for the given enviroment and be represnetative of the information provided."
                   f"Do not shy away from using strong language or hate speech if it is realistic for the enviroment."
                   f"Ensure to add a good degree of detail to the script, and make sure to include a variety of different users, information, and variety."  
-                  f"Return your response in raw json, not wrapped in any other text or data structure (i.e. '```')."
+                  f"Return your response in raw json, no surrounding text."
                   )
 
         schema = {"TITLE":"The title of the social network",
