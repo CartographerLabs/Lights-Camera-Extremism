@@ -56,6 +56,7 @@ class Director(Agent):
                   f"Ensure to add a good degree of detail to the script, and make sure to include a variety of different users, information, and variety."
                   f"Ensure to only add users to the script that you mentioned in the user list."
                   f"Make everything highly realistic."
+                  f"Provid the whole json, for all entries.
                   f"Return your response in raw json, no surrounding text."
                   )
 
