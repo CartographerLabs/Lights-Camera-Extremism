@@ -1,20 +1,27 @@
 <p align="center">
-    <img width=100% src="lce-logo.png">
-  </a>
+  <img width="80%" src="lce-logo.png">
 </p>
-<p align="center"> 🤖 A Social Network Synthetic Dataset Generation Tool  🖥️ </p>
 
-## Overview
+<p align="center">🤖 A Social Network Synthetic Dataset Generation Tool 🖥️</p>
 
-LightsCameraExtremism is a Python project that simulates social network interactions using language models. It generates users with varying personalities and simulates their interactions within a social network environment.
+![Python Version](https://img.shields.io/badge/python-3.7%2B-blue)
+![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-orange.svg)
 
-## Features
+## Overview 📝
 
-- **PlayWrite**: Generates abstract user profiles based on given channel information.
-- **Director**: Creates a script of interactions among users.
-- **Actor**: Simulates user actions based on the script.
+**LightsCameraExtremism** is a Python project that simulates social network interactions using language models. It generates users with varying personalities and simulates their interactions within a social network environment.
 
-## Installation
+**Purpose**: This tool generates synthetic extremism social media content for research purposes, allowing researchers to study extremist communication patterns in a controlled environment.
+
+## Features 🌟
+
+- **PlayWrite** 🎭: Generates abstract user profiles based on given channel information. It creates detailed backstories and personality traits for each user to simulate realistic interactions.
+
+- **Director** 🎬: Creates a script of interactions among users. It orchestrates the flow of conversations, determining which users interact and the topics discussed to emulate social network dynamics.
+
+- **Actor** 🎤: Simulates user actions based on the script. It produces the actual content of posts and messages, reflecting each user's personality and the intended purpose of their interactions.
+
+## Installation 📦
 
 1. **Clone the repository**:
 
@@ -40,6 +47,6 @@ LightsCameraExtremism is a Python project that simulates social network interact
    python setup.py install
    ```
 
-## Usage
+## Usage 🚀
 
 Run the simulation using the installed entry point:
