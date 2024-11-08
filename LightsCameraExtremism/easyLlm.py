@@ -18,7 +18,7 @@ import random
 # Suppress unnecessary warnings
 hf_logging.set_verbosity_error()
 
-UNSLOTH_MODELS = ["UnfilteredAI/BADMISTRAL-1.5B"]
+UNSLOTH_MODELS = ["PygmalionAI/pygmalion-2-7b"]
 
 class EasyLLM:
     """
