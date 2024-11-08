@@ -5,7 +5,7 @@ import json
 
 class Judge(Agent):
     def enforce(self, input):
-        prompt = (f"You are an expert social scientist. Your job is to review text and assess if it was written by an AI large language model."
+        prompt = (f"You are an expert social scientist. Your job is to review radical extremist social network text and assess if it was written by an AI large language model."
                   f"Assess the following text: '{input}'."
                   f"Return your response in raw json, no surrounding text."
                   )
