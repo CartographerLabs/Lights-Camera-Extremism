@@ -1,3 +1,5 @@
+import argparse
+import json
 from LightsCameraExtremism.playwrite import PlayWrite
 from LightsCameraExtremism.director import Director
 from LightsCameraExtremism.actor import Actor
@@ -8,6 +10,10 @@ def main():
     """
     Main execution function to run the script.
     """
+    parser = argparse.ArgumentParser(description="Run the LightsCameraExtremism simulation.")
+    parser.add_argument('--output', '-o', type=str, help='Optional output JSON file')
+    args = parser.parse_args()
+
     llm: EasyLLM = EasyLLM()
 
     CHANNEL_DATA: dict = {
@@ -48,7 +54,12 @@ def main():
         pprint(written_post)
         written_posts.append(written_post)
 
-    pprint(written_posts)
+    if args.output:
+        with open(args.output, 'w') as json_file:
+            json.dump(written_posts, json_file, indent=4)
+        print(f"Output written to {args.output}")
+    else:
+        pprint(written_posts)
 
 if __name__ == "__main__":
     main()
