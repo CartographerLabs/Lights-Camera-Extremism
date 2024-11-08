@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="80%" src="lce-logo.png">
+  <img width="100%" src="lce-logo.png">
 </p>
 
 <p align="center">🤖 A Social Network Synthetic Dataset Generation Tool 🖥️</p>
@@ -11,7 +11,7 @@
 
 **LightsCameraExtremism** is a Python project that simulates social network interactions using language models. It generates users with varying personalities and simulates their interactions within a social network environment.
 
-**Purpose**: This tool generates synthetic extremism social media content for research purposes, allowing researchers to study extremist communication patterns in a controlled environment.
+The tool generates synthetic extremism social media content for research purposes, allowing researchers to study extremist communication patterns in a controlled environment.
 
 ## Features 🌟
 
