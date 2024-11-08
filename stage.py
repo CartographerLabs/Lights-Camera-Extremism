@@ -52,7 +52,7 @@ def main():
 
         print(f"Purpose: {purpose}")
         pprint(written_post)
-        written_posts.append("USER":user, "TIME":post["TIME"],"POST":written_post)
+        written_posts.append({"USER":user, "TIME":post["TIME"],"POST":written_post})
 
     if args.output:
         with open(args.output, 'w') as json_file:
