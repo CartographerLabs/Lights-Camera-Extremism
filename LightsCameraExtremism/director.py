@@ -59,6 +59,7 @@ class Director(Agent):
                   f"All posts should be in chronological time order."
                   f"Provid the whole json, for all entries."
                   f"Timing's should be accurate and representative of the real world."
+                  f"Base everything off a real world social network like Twitter or Reddit, and create usernames, posts, content, etc accordingly."
                   f"Return your response in raw json, no surrounding text."
                   )
 
