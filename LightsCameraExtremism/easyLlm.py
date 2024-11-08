@@ -18,7 +18,7 @@ import random
 # Suppress unnecessary warnings
 hf_logging.set_verbosity_error()
 
-UNSLOTH_MODELS = ["OpenAssistant/llama2-13b-orca-8k-3319"]
+UNSLOTH_MODELS = ["unsloth/mistral-7b-v0.3-bnb-4bit"]
 
 class EasyLLM:
     """
