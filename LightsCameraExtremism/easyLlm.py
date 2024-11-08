@@ -14,6 +14,13 @@ from pydantic import BaseModel, Field, RootModel, create_model
 import json
 import os
 import random
+import functools
+import einops
+import gc
+from transformer_lens import HookedTransformer, utils 
+from transformer_lens.hook_points import HookPoint
+from jaxtyping import Float
+from collections import defaultdict
 
 # Suppress unnecessary warnings
 hf_logging.set_verbosity_error()
@@ -49,6 +56,10 @@ class EasyLLM:
         self._device: str = "cuda"
         self.model = None
         self.tokenizer = None
+
+        # Add abliteration properties
+        self.refusal_dir = None
+        self.ablation_hooks = []
 
     def _load_model(self) -> Tuple[AutoModelForCausalLM, AutoTokenizer]:
         """
@@ -155,13 +166,24 @@ class EasyLLM:
             input_ids = self.tokenizer.encode(prompt, return_tensors="pt").to(self._device)
             attention_mask = torch.ones_like(input_ids).to(self._device)
 
-        generated_ids = self.model.generate(
-            input_ids=input_ids,
-            attention_mask=attention_mask,
-            max_new_tokens=self.max_new_tokens,
-            do_sample=True,
-            pad_token_id=self.tokenizer.pad_token_id,
-        )
+        # Apply ablation hooks during generation
+        if self.ablation_hooks:
+            with self.model.hooks(fwd_hooks=self.ablation_hooks):
+                generated_ids = self.model.generate(
+                    input_ids=input_ids,
+                    attention_mask=attention_mask,
+                    max_new_tokens=self.max_new_tokens,
+                    do_sample=True,
+                    pad_token_id=self.tokenizer.pad_token_id 
+                )
+        else:
+            generated_ids = self.model.generate(
+                input_ids=input_ids,
+                attention_mask=attention_mask,
+                max_new_tokens=self.max_new_tokens,
+                do_sample=True,
+                pad_token_id=self.tokenizer.pad_token_id,
+            )
 
         # Extract only the newly generated tokens
         generated_tokens = generated_ids[:, input_ids.shape[-1]:]
@@ -442,3 +464,157 @@ class EasyLLM:
 
         else:
             raise ValueError("The provided JSON schema must be a dictionary, list, or valid JSON string.")
+
+    def setup_abliteration(self):
+        """Sets up abliteration to remove content filtering"""
+        # Convert to HookedTransformer
+        hooked_model = HookedTransformer.from_pretrained_no_processing(
+            self.model_name,
+            device_map='auto',
+            torch_dtype=torch.bfloat16
+        )
+        
+        # Calculate refusal direction
+        refusal_dir = self._get_refusal_direction(hooked_model)
+        
+        # Create ablation hooks
+        self.ablation_hooks = self._create_ablation_hooks(refusal_dir)
+        
+        # Update model weights 
+        self._orthogonalize_weights(refusal_dir)
+
+        return self
+
+    def _get_refusal_direction(self, model):
+        """Calculate refusal direction from harmful/harmless activations"""
+        def get_act_idx(cache_dict, act_name, layer):
+            key = (act_name, layer)
+            return cache_dict[utils.get_act_name(*key)]
+
+        # Load datasets
+        def get_harmful_instructions():
+            dataset = load_dataset('mlabonne/harmful_behaviors')
+            return [[{"role": "user", "content": text}] for text in dataset['train']['text']]
+
+        def get_harmless_instructions():  
+            dataset = load_dataset('mlabonne/harmless_alpaca')
+            return [[{"role": "user", "content": text}] for text in dataset['train']['text']]
+
+        harmful_inst, harmless_inst = get_harmful_instructions()[:256], get_harmless_instructions()[:256]
+
+        # Process in batches
+        batch_size = 32
+        harmful = defaultdict(list)
+        harmless = defaultdict(list)
+
+        for i in range(0, len(harmful_inst), batch_size):
+            batch_harmful = harmful_inst[i:i + batch_size]
+            batch_harmless = harmless_inst[i:i + batch_size]
+
+            harmful_tokens = self.tokenizer.apply_chat_template(batch_harmful, return_tensors="pt")
+            harmless_tokens = self.tokenizer.apply_chat_template(batch_harmless, return_tensors="pt")
+
+            # Cache activations
+            _, harmful_cache = model.run_with_cache(harmful_tokens, names_filter=lambda x: 'resid' in x)
+            _, harmless_cache = model.run_with_cache(harmless_tokens, names_filter=lambda x: 'resid' in x)
+
+            for key in harmful_cache:
+                harmful[key].append(harmful_cache[key])
+                harmless[key].append(harmless_cache[key])
+
+            gc.collect()
+            torch.cuda.empty_cache()
+
+        # Concatenate cached activations
+        harmful = {k: torch.cat(v) for k, v in harmful.items()}
+        harmless = {k: torch.cat(v) for k, v in harmless.items()}
+
+        # Calculate refusal direction
+        activation_refusals = defaultdict(list)
+        activation_layers = ["resid_pre"]
+
+        for layer_num in range(1, model.cfg.n_layers):
+            pos = -1
+            for layer in activation_layers:
+                harmful_mean = get_act_idx(harmful, layer, layer_num)[:, pos, :].mean(dim=0)
+                harmless_mean = get_act_idx(harmless, layer, layer_num)[:, pos, :].mean(dim=0)
+                
+                refusal_dir = harmful_mean - harmless_mean
+                refusal_dir = refusal_dir / refusal_dir.norm()
+                activation_refusals[layer].append(refusal_dir)
+
+        # Get best refusal direction
+        refusal_directions = [
+            activation_refusals[layer][l-1]
+            for l in range(1, model.cfg.n_layers) 
+            for layer in activation_layers
+        ]
+        
+        return sorted(refusal_directions, key=lambda x: abs(x.mean()), reverse=True)[9]
+
+    def _create_ablation_hooks(self, refusal_dir):
+        """Create hooks to ablate refusal direction during generation"""
+        def direction_ablation_hook(
+            activation: Float[Tensor, "... d_act"],
+            hook: HookPoint, 
+            direction: Float[Tensor, "d_act"],
+        ):
+            if activation.device != direction.device:
+                direction = direction.to(activation.device)
+            proj = (
+                einops.einsum(
+                    activation, direction.view(-1, 1),
+                    "... d_act, d_act single -> ... single"
+                )
+                * direction
+            )
+            return activation - proj
+
+        hook_fn = functools.partial(direction_ablation_hook, direction=refusal_dir)
+        
+        activation_layers = ["resid_pre", "resid_mid", "resid_post"]
+        fwd_hooks = [
+            (utils.get_act_name(act_name, layer), hook_fn)
+            for layer in range(self.model.config.num_hidden_layers)
+            for act_name in activation_layers
+        ]
+        
+        return fwd_hooks
+
+    def _orthogonalize_weights(self, refusal_dir):
+        """Orthogonalize model weights against refusal direction"""
+        def get_orthogonalized_matrix(
+            matrix: Float[Tensor, "... d_model"],
+            vec: Float[Tensor, "d_model"]
+        ) -> Float[Tensor, "... d_model"]:
+            proj = (
+                einops.einsum(
+                    matrix, vec.view(-1, 1),
+                    "... d_model, d_model single -> ... single"
+                )
+                * vec
+            )
+            return matrix - proj
+
+        # Orthogonalize embeddings
+        if refusal_dir.device != self.model.get_input_embeddings().weight.device:
+            refusal_dir = refusal_dir.to(self.model.get_input_embeddings().weight.device)
+            
+        self.model.get_input_embeddings().weight.data = get_orthogonalized_matrix(
+            self.model.get_input_embeddings().weight,
+            refusal_dir
+        )
+
+        # Orthogonalize attention and MLP weights
+        for layer in self.model.base_model.layers:
+            if refusal_dir.device != layer.self_attn.o_proj.weight.device:
+                refusal_dir = refusal_dir.to(layer.self_attn.o_proj.weight.device)
+                
+            layer.self_attn.o_proj.weight.data = get_orthogonalized_matrix(
+                layer.self_attn.o_proj.weight,
+                refusal_dir
+            )
+            layer.mlp.down_proj.weight.data = get_orthogonalized_matrix(
+                layer.mlp.down_proj.weight, 
+                refusal_dir
+            )
