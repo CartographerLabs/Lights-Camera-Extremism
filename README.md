@@ -46,7 +46,7 @@ or
 
 ## Usage 🚀
 
-Lights Camera Extremism can be used, see the [stage.py](https://github.com/CartographerLabs/Lights-Camera-Extremism/edit/main/stage.py) script for an example or see the [Google Colab Playbook here](https://colab.research.google.com/drive/1qccaqPTuCS0UJ6m93vMWbPQzTfnjoTq8?usp=sharing). See an example of usage below:
+See the [stage.py](https://github.com/CartographerLabs/Lights-Camera-Extremism/edit/main/stage.py) script for an example or see the [Google Colab Playbook here](https://colab.research.google.com/drive/1qccaqPTuCS0UJ6m93vMWbPQzTfnjoTq8?usp=sharing). See an example of usage below:
 
 ```python
 import argparse
