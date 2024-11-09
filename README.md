@@ -104,7 +104,7 @@ for post in script:
     pprint({"USER":user, "TIME":post["TIME"],"POST":written_post})
 ```
 # 🤖 Model
-From experimenting with several models ```unsloth/Mistral-Small-Instruct-2409-bnb-4bit"``` was chosen as being the most rounded solution for both uncensored content and for the structure of sentences and reasoning.
+From experimenting with several models ```unsloth/Mistral-Small-Instruct-2409-bnb-4bit``` was chosen as being the most rounded solution for both uncensored content and for the structure of sentences and reasoning.
 
 # 🙏 Contributions
 LCA is an open-source project and welcomes contributions from the community. If you would like to contribute to LCA, please follow these guidelines:
