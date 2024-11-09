@@ -52,7 +52,7 @@ class Director(Agent):
                   f"The script should be '{story_length}' posts in length."
                   f"Usernames should be ones that you'd expect to see on a real social network and be serious real examples."
                   f"The PURPOSE field, should include a variety of different purposes, such as sharing news, asking questions, making jokes, etc - but should all be things the user can do in a text post."
-                  f"The script you are writing should have several small conversations baked in."
+                  f"The script you are writing should have several small conversations baked in and should have users popping in to talk about other things where appropriate. it should also include multiple time blocks."
                   f"Ensure to add a good degree of detail to the script, and make sure to include a variety of different users, information, and variety."
                   f"Ensure to only add users to the script that you mentioned in the user list."
                   f"Make everything highly realistic."
