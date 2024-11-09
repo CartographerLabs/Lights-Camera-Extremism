@@ -103,6 +103,8 @@ for post in script:
 
     pprint({"USER":user, "TIME":post["TIME"],"POST":written_post})
 ```
+# 🤖 Model
+From experimenting with several models ```unsloth/Mistral-Small-Instruct-2409-bnb-4bit"``` was chosen as being the most rounded solution for both uncensored content and for the structure of sentences and reasoning.
 
 # 🙏 Contributions
 LCA is an open-source project and welcomes contributions from the community. If you would like to contribute to LCA, please follow these guidelines:
@@ -115,7 +117,7 @@ LCA is an open-source project and welcomes contributions from the community. If 
 - Once your changes have been reviewed and approved, they will be merged into the main repository.
 
 # ⚖️ Code of Conduct
-LCA follows the Contributor Covenant Code of Conduct. Please make sure to review and adhere to this code of conduct when contributing to Tomato.
+LCA follows the Contributor Covenant Code of Conduct. Please make sure to review and adhere to this code of conduct when contributing to LCA.
 
 # 🐛 Bug Reports and Feature Requests
 If you encounter a bug or have a suggestion for a new feature, please open an issue in the GitHub repository. Please provide as much detail as possible, including steps to reproduce the issue or a clear description of the proposed feature. Your feedback is valuable and will help improve LCA for everyone.
