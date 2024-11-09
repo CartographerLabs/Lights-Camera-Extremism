@@ -55,7 +55,7 @@ class Actor(Agent):
                   f"Ensure to type like a human, have the occasional typo, use swear words and strong language, and be aggresive where appropriate."
                   f"Be specific, talk about specific details, agendas, plans, dates, people, etc."
                   f"Ensure to use group specific language, codewords, and rhetoric that would be seen on this network."
-                  f"Ensure to follow the flow and make sure you match usersnames o the correct post when referncing previous content."
+                  f"Ensure to follow the flow and make sure you match usersnames o the correct post when referncing previous content. Some users can be bystanders and not add to tje conversation talking place. Others may lead new conversations."
                   f"Do not make up any content."
                   f"Return your response in raw json, no surrounding text."
 
