@@ -9,11 +9,11 @@
 
 ## Overview 📝
 
-**LightsCameraExtremism** is a Python project that simulates social network interactions using language models. It generates users with varying personalities and simulates their interactions within a social network environment. The tool generates synthetic extremism social media content for research purposes, allowing researchers to study extremist communication patterns in a controlled environment.
+**Lights, Camera, Extremism** is a Python project that simulates social network interactions using language models. It generates users with varying personalities and simulates their interactions within a social network environment. The tool generates synthetic extremism social media content for research purposes, allowing researchers to study extremist communication patterns in a controlled environment.
 
 > See the [Google Colab Playbook here](https://colab.research.google.com/drive/1qccaqPTuCS0UJ6m93vMWbPQzTfnjoTq8?usp=sharing).
 
-Lights Camera Action breaks activities down into three main groups:
+Lights, Camera, Action breaks activities down into three main groups:
 
 - **PlayWrite** 🎭: Generates an abstract on the social network to be created. It creates detailed backstories and personality traits for each user to simulate realistic interactions.
 
@@ -23,14 +23,14 @@ Lights Camera Action breaks activities down into three main groups:
 
 ## Installation 📦
 
-## Requirements
+### Requirements
 
 Oversight requires Nvidia CUDA. Follow the steps below:
 - Ensure your Nvidia drivers are up to date: https://www.nvidia.com/en-us/geforce/drivers/
 - Install the appropriate dependancies from here: https://pytorch.org/get-started/locally/
 - Validate CUDA is installed correctly by running the following and being returned a prompt ```python -c "import torch; print(torch.rand(2,3).cuda())"```
 
-## Instsall
+### Instsall
 
    ```bash
    git clone https://github.com/yourusername/LightsCameraExtremism.git
