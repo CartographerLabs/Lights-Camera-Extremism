@@ -44,10 +44,18 @@ or
    !pip install git+https://github.com/CartographerLabs/Lights-Camera-Extremism.git
    ```
 
+# 🤖 Model
+From experimenting with several models ```unsloth/Mistral-Small-Instruct-2409-bnb-4bit``` was chosen as being the most rounded solution for both uncensored content and for the structure of sentences and reasoning.
+
+# ‍⚖️ Judging 
+As part of the Actor post-generation process, ```Lights, Camera, Extremism``` includes an adversarial judge mechanism. In this process, when the Actor LLM generates a post, it is subsequently fed into a separate LLM, which is asked the following question: ```You are an expert social scientist. Your job is to review social network text and assess if it was written by an AI large language model…```
+
+If the second model assesses that the post is likely to have been written by an AI model, it provides its reasoning to the Actor LLM, which then generates a revised response based on the initial prompt and the judge's feedback.
+
 ## Usage 🚀
+In the example below, the ```Director``` was asked to create a script for a social network of individuals obsessed with the conspiracy that cacti don’t exist. Below is the director’s setup and a snippet of the output, followed by the actor’s setup and a sample of the network posts. Also see the [stage.py](https://github.com/CartographerLabs/Lights-Camera-Extremism/edit/main/stage.py) script for an example or see the [Google Colab Playbook here](https://colab.research.google.com/drive/1qccaqPTuCS0UJ6m93vMWbPQzTfnjoTq8?usp=sharing). 
 
-See the [stage.py](https://github.com/CartographerLabs/Lights-Camera-Extremism/edit/main/stage.py) script for an example or see the [Google Colab Playbook here](https://colab.research.google.com/drive/1qccaqPTuCS0UJ6m93vMWbPQzTfnjoTq8?usp=sharing). See an example of usage below:
-
+### Director Script Generation
 ```python
 import argparse
 import json
@@ -56,7 +64,6 @@ from LightsCameraExtremism.director import Director
 from LightsCameraExtremism.actor import Actor
 from LightsCameraExtremism.easyLlm import EasyLLM
 from pprint import pprint
-
 
 llm: EasyLLM = EasyLLM()
 
@@ -71,23 +78,65 @@ CHANNEL_DATA: dict = {
 
 director: Director = Director(llm)
 
-# While true loop to generate untill JSON generates in correct format.
-while True:
-  try:
-    script_data: dict = director.write_script(
-            CHANNEL_DATA["TITLE"],
-            CHANNEL_DATA["DESCRIPTION"],
-            CHANNEL_DATA["NUMBER_OF_USERS"],
-            CHANNEL_DATA["CHANNEL_VIBE"],
-            CHANNEL_DATA["STORY_AGENDA"],
-            CHANNEL_DATA["NUMBER_OF_POSTS"],
-        )
-    users: list = script_data["USERS"]
-    script: list = script_data["SCRIPT"]
-    break
-  except:
-    pass
+script_data: dict = director.write_script(
+        CHANNEL_DATA["TITLE"],
+        CHANNEL_DATA["DESCRIPTION"],
+        CHANNEL_DATA["NUMBER_OF_USERS"],
+        CHANNEL_DATA["CHANNEL_VIBE"],
+        CHANNEL_DATA["STORY_AGENDA"],
+        CHANNEL_DATA["NUMBER_OF_POSTS"],
+    )
+```
 
+**Output:**
+```json
+{
+   "USERS":[
+      {
+         "USERNAME":"TruthSeeker420",
+         "BIO":"Fighting the cactus agenda one tweet at a time! 🌵",
+         "PERSONALITY":"Conspiracy Theorist"
+      },
+      {
+         "USERNAME":"CactusFighter",
+         "BIO":"Exposing the truth behind the cactus propaganda! 🌵",
+         "PERSONALITY":"Activist"
+      },
+      {
+         "USERNAME":"ElectionWatch24",
+         "BIO":"Keeping an eye on the 2024 US election. #Election2024",
+         "PERSONALITY":"Political Junkie"
+      },
+      {
+         "USERNAME":"JadeTheJester",
+         "BIO":"Making politics fun again! 🥇",
+         "PERSONALITY":"Joker"
+      }
+   ],
+   "SCRIPT":[
+      {
+         "USER":"TruthSeeker420",
+         "TIME":"10/05/23 08:30:00",
+         "PURPOSE":"Sharing News",
+         "FEATURES":{
+            "TOXICITY":"medium",
+            "SENTIMENT":"negative",
+            "EMOTION":"anger"
+         }
+      },
+      {
+         "USER":"CactusFighter",
+         "TIME":"10/05/23 08:32:00",
+         "PURPOSE":"Reacting to Tweet",
+         "FEATURES":{
+            "TOXICITY":"low",
+            "SENTIMENT":"neutral",
+            "EMOTION":"apathy"
+         }
+      },
+```
+## Actor Post Generation
+```
 written_posts: list = []
 for post in script:
     user: str = post["USER"]
@@ -103,8 +152,46 @@ for post in script:
 
     pprint({"USER":user, "TIME":post["TIME"],"POST":written_post})
 ```
-# 🤖 Model
-From experimenting with several models ```unsloth/Mistral-Small-Instruct-2409-bnb-4bit``` was chosen as being the most rounded solution for both uncensored content and for the structure of sentences and reasoning.
+**Output:**
+```
+[{'POST': "Folks, I've just gotten hold of some shocking info! The deep state "
+          'is at it again, trying to peddle their cactus agenda. You know what '
+          "I'm talking about - those fake, plastic plants they're trying to "
+          "pass off as real. We ain't gonna stand for it! They're pushing "
+          'their narrative on the 2024 US election, and we need to fight back '
+          "before it's too late. #CactusTruth #DeepStateExposed",
+  'TIME': '10/05/23 08:30:00',
+  'USER': 'TruthSeeker420'},
+ {'POST': "Hey @TruthSeeker420, you're barking up the right tree. This cactus "
+          'agenda is nuts! The deep state is pushing their fake plants, '
+          "alright. Let's not forget the 2024 US election though. We'll see "
+          'right through their schemes. #CactusTruth #DeepStateExposed',
+  'TIME': '10/05/23 08:32:00',
+  'USER': 'CactusFighter'},
+ {'POST': "Hey guys, I've been seeing a lot about this 'cactus agenda' stuff "
+          'from @TruthSeeker420 and @CactusFighter. Just wondering, has anyone '
+          "really seen a cactus that wasn't real? I mean, I've heard about it, "
+          'but never seen one myself. Curious to know what you all think. '
+          '#CactusAgenda #Election2024',
+  'TIME': '10/05/23 08:35:00',
+  'USER': 'ElectionWatch24'},
+ {'POST': 'Yo @TruthSeeker420, @CactusFighter, we all know the deep state '
+          "loves their fake cacti, but have you ever thought maybe they're "
+          'really just trying to grow some succulent bonsais for their fancy '
+          "offices? 😂 Imagine the deep state's conference table surrounded by "
+          "little cactus buddies. Now that's political humor! #CactusBuddies "
+          '#DeepStateBonsais',
+  'TIME': '10/05/23 08:37:00',
+  'USER': 'JadeTheJester'},
+ {'POST': "Hey everyone, I just came across this shady link that's trying to "
+          'push the fake cactus agenda even harder! Check it out and see for '
+          "yourselves. They're trying to make us think cacti are real for the "
+          "2024 US election! We can't let them win! 😠 #CactusTruth "
+          '#DeepStateExposed @CactusFighter @ElectionWatch24',
+  'TIME': '10/05/23 08:40:00',
+  'USER': 'TruthSeeker420'},
+
+```
 
 # 🙏 Contributions
 LCA is an open-source project and welcomes contributions from the community. If you would like to contribute to LCA, please follow these guidelines:
