@@ -2,7 +2,7 @@
 | --- |
 
 <p align="center">
-  <img width="100%" src="lce-logo.png">
+  <img width="100%" src="RealSeaGullConspiracy.gif">
 </p>
 
 <p align="center">🤖 A Social Network Synthetic Dataset Generation Tool 🖥️</p>
